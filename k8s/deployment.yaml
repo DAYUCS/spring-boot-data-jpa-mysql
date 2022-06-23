@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: example
+  labels:
+    app: example
+spec:
+  publishNotReadyAddresses: true
+  ports:
+    - port: 8080
+  selector:
+    app: example
+    tier: frontend
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example
+  labels:
+    app: example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      name: example
+      labels:
+        app: example
+    spec:
+      containers:
+        - name: example
+          image: biandayu/sample-spring-boot-jpa
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+---
