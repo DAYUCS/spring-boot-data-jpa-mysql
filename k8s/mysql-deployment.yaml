@@ -3,13 +3,12 @@ kind: Service
 metadata:
   name: example-mysql
   labels:
-    app: example
+    app: example-mysql
 spec:
   ports:
     - port: 3306
   selector:
-    app: example
-    tier: mysql
+    app: example-mysql
   clusterIP: None
 ---
 apiVersion: v1
@@ -17,7 +16,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    app: example
+    app: example-mysql
 spec:
   accessModes:
     - ReadWriteOnce
@@ -30,23 +29,21 @@ kind: Deployment
 metadata:
   name: example-mysql
   labels:
-    app: example
+    app: example-mysql
 spec:
   selector:
     matchLabels:
-      app: example
-      tier: mysql
+      app: example-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: example
-        tier: mysql
+        app: example-mysql
     spec:
       containers:
         - image: mysql:5.6
-          name: mysql
+          name: example-mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
