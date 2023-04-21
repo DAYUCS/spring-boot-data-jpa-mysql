@@ -27,6 +27,7 @@ public class TutorialController {
 	@Autowired
 	TutorialRepository tutorialRepository;
 
+	// Get all totorials
 	@GetMapping("/tutorials")
 	public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
 		try {
@@ -47,6 +48,7 @@ public class TutorialController {
 		}
 	}
 
+	// Get totorial by id
 	@GetMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
 		Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
@@ -58,6 +60,7 @@ public class TutorialController {
 		}
 	}
 
+	// Add totorial
 	@PostMapping("/tutorials")
 	public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
 		try {
@@ -69,6 +72,7 @@ public class TutorialController {
 		}
 	}
 
+	// Update totorial
 	@PutMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
 		Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
@@ -84,6 +88,7 @@ public class TutorialController {
 		}
 	}
 
+	// Delete totorial
 	@DeleteMapping("/tutorials/{id}")
 	public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
 		try {
@@ -94,6 +99,7 @@ public class TutorialController {
 		}
 	}
 
+	// Delete all totorials
 	@DeleteMapping("/tutorials")
 	public ResponseEntity<HttpStatus> deleteAllTutorials() {
 		try {
@@ -105,6 +111,7 @@ public class TutorialController {
 
 	}
 
+	// Find totorial by published
 	@GetMapping("/tutorials/published")
 	public ResponseEntity<List<Tutorial>> findByPublished() {
 		try {
