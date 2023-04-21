@@ -1,0 +1,17 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: example-web
+spec:
+  template:
+    spec:
+      containers:
+      - image: biandayu/jpademo:v1.0.2
+        ports:
+        - containerPort: 8080
+        env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
