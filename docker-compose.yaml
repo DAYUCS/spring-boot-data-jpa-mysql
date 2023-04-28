@@ -1,0 +1,42 @@
+version: "4.0"
+
+services:
+  toturial-service:
+    image: biandayu/jpademo:v1.0.3
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+    ports:
+      - "8080:8080"
+    depends_on:
+      - example-mysql
+
+  example-mysql:
+    image: mysql:8.0.33
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  jaeger-service:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "14250"
+
+  collector:
+    image: otel/opentelemetry-collector:latest
+    command: [ "--config=/etc/otel-collector-config.yml" ]
+    volumes:
+      - ./otel-config.yaml:/etc/otel-collector-config.yml
+    ports:
+      - "4317:4317"
+    depends_on:
+      - jaeger-service
+
+volumes:
+  db:

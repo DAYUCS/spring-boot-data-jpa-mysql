@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bezkoder</groupId>
 	<artifactId>spring-boot-data-jpa</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>spring-boot-data-jpa</name>
 	<description>Demo project for Spring Boot Apis CRUD using Spring Data JPA</description>
 
@@ -22,6 +22,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+   			<groupId>io.opentelemetry.instrumentation</groupId>
+   			<artifactId>opentelemetry-spring-boot-starter</artifactId>
+   			<version>1.25.1-alpha</version>
 		</dependency>
 		
 		<dependency>
@@ -35,7 +41,12 @@
 			<version>8.0.33</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
+		<dependency>
+ 			<groupId>org.slf4j</groupId>
+ 			<artifactId>slf4j-api</artifactId>
+  		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -44,7 +55,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-                	<imageName>biandayu/jpademo:v1.0.2</imageName>
+                	<imageName>biandayu/jpademo:v1.0.3</imageName>
         		</configuration>
 			</plugin>
 		</plugins>
