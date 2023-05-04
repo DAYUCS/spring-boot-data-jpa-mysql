@@ -1,21 +1,21 @@
-# Skaffold/Buildpacks Example
+# Springboot OpenTelemetry Example
 
-## Build and Deploy Once
+## Build JAR
 ```
-skaffold run
-```
-
-## Continuous Build and Deploy on Code Changes
-```
-skaffold dev --port-forward
+mvn clean install
 ```
 
-## Debugging with Skaffold
+## Build Docker Image
 ```
-skaffold debug
+docker build -t biandayu/jpademo:v1.0.3 .
 ```
 
-## Build Image
+## Run Application
 ```
-mvn spring-boot:build-image
+docker compose up -d
+```
+
+## Stop Application
+```
+docker compose down
 ```

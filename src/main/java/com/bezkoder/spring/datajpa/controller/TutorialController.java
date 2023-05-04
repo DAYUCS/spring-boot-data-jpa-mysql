@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bezkoder.spring.datajpa.model.Tutorial;
 import com.bezkoder.spring.datajpa.repository.TutorialRepository;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
@@ -30,6 +32,9 @@ public class TutorialController {
 	
 	@Autowired
 	TutorialRepository tutorialRepository;
+
+	@Autowired
+	MeterRegistry registry;
 
 	// Get all totorials
 	@GetMapping("/tutorials")
@@ -63,6 +68,7 @@ public class TutorialController {
 	@GetMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
 		LOGGER.info("Getting tutorial by ID {}", id);
+		registry.counter("tutorial.total.get", "id", Long.toString(id)).increment();
 		Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
 
 		if (tutorialData.isPresent()) {
