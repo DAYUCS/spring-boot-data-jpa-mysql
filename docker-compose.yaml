@@ -5,7 +5,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
-      - SLEEP_LENGTH=5
+      - SLEEP_LENGTH=15
     ports:
       - "8080:8080"
     restart: on-failure
